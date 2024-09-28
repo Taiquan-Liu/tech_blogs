@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "graphs"
+version = "0.1.0"
+description = "All the demo code related to graphs"
+authors = ["Taiquan Liu <liutaiquan@live.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+networkx = "^3.3"
+darker = {extras = ["jupyter"], version = "^2.1.1"}
+ipython = "^8.27.0"
+ipykernel = "^6.29.5"
+pygraphviz = "^1.13"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
