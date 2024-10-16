@@ -4,7 +4,6 @@ from pathlib import Path
 import networkx as nx
 from pygraphviz import AGraph
 
-
 PLOT_DIR = Path(os.path.dirname(__file__)) / "plots"
 
 COLORS = {
@@ -13,16 +12,17 @@ COLORS = {
     "to": "#ee5b52",
 }
 
+
 def draw_digraph(
-        G,
-        colored_nodes={},
-        colored_edges={},
-        rank=True,
-        prog='dot',
-        output_format="png",
-        args="",
-        filename="",
-    ):
+    G,
+    colored_nodes={},
+    colored_edges={},
+    rank=True,
+    prog="dot",
+    output_format="png",
+    args="",
+    filename="",
+):
     """Helper for plotting a NetworkX DiGraph"""
     A: AGraph = nx.nx_agraph.to_agraph(G)
     A.node_attr["style"] = "filled"
@@ -48,7 +48,7 @@ def draw_digraph(
     # put all root nodes at the top
     if rank:
         roots = [n for n, d in G.in_degree() if d == 0]
-        s = A.add_subgraph(rank='same')
+        s = A.add_subgraph(rank="same")
         s.add_nodes_from(roots)
 
     for node in A.nodes():
@@ -78,9 +78,9 @@ def draw_graph(
     G,
     colored_nodes={},
     colored_edges={},
-    prog='dot',
+    prog="dot",
     output_format="png",
-    args='',
+    args="",
     filename=None,
 ):
     """Helper for plotting a NetworkX non-DiGraph"""
@@ -92,7 +92,9 @@ def draw_graph(
         A.get_node(node).attr["fillcolor"] = color
 
     for edge, color in colored_edges.items():
-        assert (edge in G.edges()) or (edge[::-1] in G.edges()), f"Edge {edge} not in graph"
+        assert (edge in G.edges()) or (
+            edge[::-1] in G.edges()
+        ), f"Edge {edge} not in graph"
         A.get_edge(*edge).attr["color"] = color
 
     for node in A.nodes():
