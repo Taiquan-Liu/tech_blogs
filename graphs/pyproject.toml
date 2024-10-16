@@ -4,6 +4,10 @@ version = "0.1.0"
 description = "All the demo code related to graphs"
 authors = ["Taiquan Liu <liutaiquan@live.com>"]
 readme = "README.md"
+packages = [
+    { include = "edge_boundary" },
+    { include = "utils" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.11"
