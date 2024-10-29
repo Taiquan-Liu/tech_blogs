@@ -39,11 +39,11 @@ def draw_digraph(
 
     for node, color in colored_nodes.items():
         assert node in G.nodes(), f"Node {node} not in graph"
-        A.get_node(node).attr["fillcolor"] = COLORS.get(color, "grey")
+        A.get_node(node).attr["fillcolor"] = COLORS.get(color, color)
 
     for edge, color in colored_edges.items():
         assert edge in G.edges(), f"Edge {edge} not in graph"
-        A.get_edge(*edge).attr["color"] = COLORS.get(color, "grey")
+        A.get_edge(*edge).attr["color"] = COLORS.get(color, color)
 
     # put all root nodes at the top
     if rank:
