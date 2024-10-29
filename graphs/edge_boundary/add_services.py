@@ -159,7 +159,9 @@ def add_services_v3(G_to: nx.graph, G_from: nx.graph, save_plot=""):
     from the graph G_from.
     """
     services = {node for node in G_from.nodes if node.startswith("S")}
-    H_from = G_from.subgraph(services | set(G_to.nodes))
+    ancestors = {a for node in G_to.nodes for a in nx.ancestors(G_from, node)}
+    service_ancestors = services & ancestors
+    H_from = G_from.subgraph(service_ancestors | set(G_to.nodes))
     G_result = nx.compose(H_from, G_to)
 
     if save_plot:
