@@ -115,8 +115,10 @@ def add_services_v2(G_to: nx.graph, G_from: nx.graph, save_plot=""):
     services = {node for node in G_from.nodes if node.startswith("S")}
 
     boundary_edges = set(
-        nx.edge_boundary(G_from, services - set(G_to.nodes), G_to.nodes)
-    ) | set(nx.edge_boundary(G_from, G_to.nodes, services & set(G_to.nodes)))
+        nx.edge_boundary(G_from, services, G_to.nodes)
+    ) | set(
+        nx.edge_boundary(G_from, set(G_to.nodes) - services, services & set(G_to.nodes))
+    )
 
     if set(boundary_edges) - set(G_to.edges):
         G_to_old = G_to.copy()
