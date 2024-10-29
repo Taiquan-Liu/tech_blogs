@@ -55,6 +55,46 @@ def add_services_v1(G_to: nx.DiGraph, G_from: nx.DiGraph, save_plot=""):
             filename=save_plot,
         )
 
+    es_edges = {
+        edge for edge in G_from.edges if edge[0].startswith("E") and edge[1].startswith("S")
+    }
+
+    for es_edge in es_edges:
+        if es_edge[0] in G_to.nodes and es_edge[1] in G_to.nodes:
+
+            if save_plot:
+                draw_digraph(
+                    G=G_from,
+                    colored_nodes={
+                        **{node: "included" for node in G_to.nodes},
+                        es_edge[0]: "from",
+                        es_edge[1]: "from",
+                    },
+                    colored_edges={
+                        **{edge: "included" for edge in G_to.edges},
+                        **{es_edge: "to"},
+                    },
+                    filename=save_plot,
+                )
+
+            G_to.add_edge(es_edge[0], es_edge[1])
+
+            if save_plot:
+                draw_digraph(
+                    G=G_from,
+                    colored_nodes={node: "included" for node in G_to.nodes},
+                    colored_edges={edge: "included" for edge in G_to.edges},
+                    filename=save_plot,
+                )
+
+    if save_plot:
+        draw_digraph(
+            G=G_from,
+            colored_nodes={node: "included" for node in G_to.nodes},
+            colored_edges={edge: "included" for edge in G_to.edges},
+            filename=save_plot,
+        )
+
     return G_to
 
 
